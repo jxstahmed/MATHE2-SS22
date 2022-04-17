@@ -1,6 +1,5 @@
 #include "CMyVektor.h"
 #include <string>
-#include <algorithm>
 using namespace std;
 
 static const double H(0.00000001);
@@ -20,12 +19,12 @@ CMyVektor::~CMyVektor() // Dekstruktor -> War nicht gefragt aber war jetzt kein 
     Vector.clear();
 }
 
-void CMyVektor::set_Dimension(int Dimension) // Nachtr‰glich die Dimension noch um‰ndern
+void CMyVektor::set_Dimension(int Dimension) // Nachtr√§glich die Dimension noch um√§ndern
 {
     Vector.resize(Dimension);
 };
 
-void CMyVektor::set_Value(int index, double wert) //Speziell nochmal den Wert an einer bestimmten Stelle im Vector ‰ndern.
+void CMyVektor::set_Value(int index, double wert) //Speziell nochmal den Wert an einer bestimmten Stelle im Vector √§ndern.
 {
     (*this).Vector[index] = wert;
 };
@@ -35,10 +34,10 @@ int CMyVektor::get_size() // Sagt der Name ja schon was hier passiert.
     return Vector.size();
 };
 
-CMyVektor operator +(CMyVektor vec, CMyVektor vec2) // Operator f¸r Vektor Addition.
+CMyVektor operator +(CMyVektor vec, CMyVektor vec2) // Operator f√ºr Vektor Addition.
 {
     CMyVektor x(vec.get_size());
-    if (vec.get_size() ==  vec2.get_size()) // Wenn die groeﬂe passen, dann rechnet er. Sonst nicht, weil passt ja nicht.
+    if (vec.get_size() ==  vec2.get_size()) // Wenn die groe√üe passen, dann rechnet er. Sonst nicht, weil passt ja nicht.
     {
         for (int zaehler = 0; zaehler < vec.get_size(); zaehler++)
         {
@@ -51,21 +50,21 @@ CMyVektor operator +(CMyVektor vec, CMyVektor vec2) // Operator f¸r Vektor Addit
 CMyVektor operator *(double lambda, CMyVektor x) //Hier macht er Multiplikation
 {
     CMyVektor y = x;
-    int groeﬂe = x.get_size();
+    int groe√üe = x.get_size();
 
-    for (int i = 0; i < groeﬂe; i++)
+    for (int i = 0; i < groe√üe; i++)
     {
         y[i] *= lambda;
     }
     return y;
 }
 
-double& CMyVektor::operator [](int index) //‹berladungs Operator
+double& CMyVektor::operator [](int index) //√úberladungs Operator
 {
     return Vector[index];
 }
 
-double CMyVektor::operator [](int index) const //Selbe wie oben, aber nur als const Methode f¸r die funktionen.
+double CMyVektor::operator [](int index) const //Selbe wie oben, aber nur als const Methode f√ºr die funktionen.
 {
     return Vector[index];
 }
@@ -81,7 +80,7 @@ CMyVektor gradient(CMyVektor x, funktion f) // Gradienten Berechnung.
         CMyVektor xh = x; //Kopiert x in xh und dann rechnen wir an jeder Stell in xh dann * lambda.
         xh[i] += H;
 
-        ergebnis[i] = (f(xh) - f(x)) / H; // Hier rechnen wir den end¸ltigen Gradienten numerisch.
+        ergebnis[i] = (f(xh) - f(x)) / H; // Hier rechnen wir den end√ºltigen Gradienten numerisch.
     }
     return ergebnis;
 }
@@ -106,7 +105,7 @@ void maximierung(CMyVektor x, funktion f, double lambda) // Hier geschieht die M
             << "\tf(x_neu) = " << f(xneu) << endl
             << endl;
 
-        if (f(xneu) > f(x)) //Wenn das neue x grˆﬂer ist als das alte, testen wir doppelte. Damit wir schneller vorankommen.
+        if (f(xneu) > f(x)) //Wenn das neue x gr√∂√üer ist als das alte, testen wir doppelte. Damit wir schneller vorankommen.
         {
             CMyVektor xtest = x + (2 * (lambda * gradfx));
 
@@ -132,7 +131,7 @@ void maximierung(CMyVektor x, funktion f, double lambda) // Hier geschieht die M
         }
         else // War das neue x kleiner oder/gleich dem alten, halbieren wir die Schrittweite.
         {
-            while (f(xneu) <= f(x)) // Aber nur solange, bis das neue x grˆﬂer als das alte ist.
+            while (f(xneu) <= f(x)) // Aber nur solange, bis das neue x gr√∂√üer als das alte ist.
             {
                 lambda /= 2.0;
                 xneu = x + (lambda * gradfx);
@@ -147,7 +146,7 @@ void maximierung(CMyVektor x, funktion f, double lambda) // Hier geschieht die M
         }
     }
 
-    if (gradfx.get_betrag() < 1e-5) // Abbruch Bedingung 1. Wenn bestimmte L‰nge ¸berschritten.
+    if (gradfx.get_betrag() < 1e-5) // Abbruch Bedingung 1. Wenn bestimmte L√§nge √ºberschritten.
     {
         cout << "Ende wegen ||grad f(x)||<1e-5 bei " << endl;
     }
@@ -163,11 +162,11 @@ void maximierung(CMyVektor x, funktion f, double lambda) // Hier geschieht die M
         << "\t||grad f(x)|| = " << gradfx.get_betrag() << endl;
 }
 
-double CMyVektor::get_betrag() //Hier berechnen wir die L‰nge/Betrag
+double CMyVektor::get_betrag() //Hier berechnen wir die L√§nge/Betrag
 {
     double ergebnis(0.0);
-    int groeﬂe = get_size();
-    for (int i = 0; i != groeﬂe; i++)
+    int groe√üe = get_size();
+    for (int i = 0; i != groe√üe; i++)
     {
         ergebnis += ((*this)[i] * (*this)[i]);
     }
@@ -176,16 +175,16 @@ double CMyVektor::get_betrag() //Hier berechnen wir die L‰nge/Betrag
 
 
 
-ostream& operator <<(ostream& stream, CMyVektor& myclass) //Musste Operator einrichten, damit wir die Vektoren ausgeben kˆnnen
+ostream& operator <<(ostream& stream, CMyVektor& myclass) //Musste Operator einrichten, damit wir die Vektoren ausgeben k√∂nnen
 {
     stream << "( ";
-    int groeﬂe = myclass.get_size();
+    int groe√üe = myclass.get_size();
 
-    for (int i = 0; i < groeﬂe; i++)
+    for (int i = 0; i < groe√üe; i++)
     {
         stream << myclass[i];
 
-        if (i + 1 < groeﬂe)
+        if (i + 1 < groe√üe)
         {
             stream << "; ";
         }
