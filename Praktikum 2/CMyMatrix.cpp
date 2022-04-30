@@ -74,25 +74,6 @@ CMyMatrix operator*(double zahl, const CMyMatrix& x)
 	return ergebnis;
 }
 
-std::ostream& operator<<(std::ostream& ausgabe, const CMyMatrix& x)
-{
-	cout << "( ";
-
-	for (int i = 0; i < x.dim.zeile; i++)
-	{
-		for (int j = 0; j < x.dim.spalte; j++)
-		{
-			cout << x.at(j, i) << "; ";
-		}
-		if (i + 1 >= x.dim.zeile)
-		{
-			cout << " )";
-		}
-	}
-
-	return ausgabe;
-}
-
 CMyMatrix jacobi(CMyVektor& x, jacobif f)
 {
 	CMyMatrix ergebnis;
@@ -172,18 +153,6 @@ void newton(const CMyVektor& x, jacobif f)
 	}
 }
 
-CMyVektor CMyMatrix::spalte_als_vector(int spalte) const
-{
-	CMyVektor ergebnis(dim.zeile);
-
-	for (int i = 0; i < dim.zeile; i++)
-	{
-		ergebnis.set_Value(i, at(spalte, i));
-	}
-
-	return ergebnis;
-}
-
 CMyVektor CMyMatrix::zeile_als_vector(int zeile) const
 {	
 	CMyVektor ergebnis(dim.spalte);
@@ -206,4 +175,23 @@ vector<double*> CMyMatrix::zeiger_aufzeile(int zeile)
 	}
 
 	return zeiger;
+}
+
+std::ostream& operator<<(std::ostream& ausgabe, const CMyMatrix& x)
+{
+	cout << "( ";
+
+	for (int i = 0; i < x.dim.zeile; i++)
+	{
+		for (int j = 0; j < x.dim.spalte; j++)
+		{
+			cout << x.at(j, i) << "; ";
+		}
+		if (i + 1 >= x.dim.zeile)
+		{
+			cout << " )";
+		}
+	}
+
+	return ausgabe;
 }

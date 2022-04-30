@@ -32,7 +32,6 @@ public:
 	friend CMyMatrix operator*(double zahl, const CMyMatrix& x);
 	friend std::ostream& operator<<(std::ostream& ausgabe, const CMyMatrix& x);
 
-	CMyVektor spalte_als_vector(int spalte) const;
 	CMyVektor zeile_als_vector(int zeile) const;
 	std::vector<double*> zeiger_aufzeile(int zeile);
 };
